@@ -25,7 +25,7 @@ pod install 和 pod update 之间的不同之处？
 如bundler，RubyGems或者composer，它们都有类似的命令，并且有与本文描述完全相同的行为和意图。
 
 
-#2. 命令的详细介绍
+# 2. 命令的详细介绍
 ##### 2.1 pod install
 用于工程中第一次 在工程中 安装初始化pods， 也用于每次编辑Podfile添加、更新或移除pod时。
 Podfile.lock 文件介绍，这个文件会保持对每个pod已安装的版本的跟踪，并且锁定这些版本。
@@ -36,7 +36,7 @@ Podfile.lock 文件介绍，这个文件会保持对每个pod已安装的版本�
 2.  对于没有记录在Podfile.lock文件中的pods，会查找匹配Podfile中描述的版本（如pod ‘MyPod’, ‘~>1.2’）。
 
 
-#####2.2 pod outdated
+##### 2.2 pod outdated
 当你运行pod outdated命令，CocoaPods会列出所有有新版本的pods，
 新版本是指比记录在Podfile.lock文件中的版本（即当前每个pod安装的版本）更新的版本。
 这意味着如果你对这些pod运行pod update PODNAME，
@@ -51,7 +51,7 @@ Podfile.lock 文件介绍，这个文件会保持对每个pod已安装的版本�
 如果你运行`pod update`而不带pod名称，`CocoaPods`将会更新`Podfile`文件中记录的每一个`pod`到最新可用版本。
 
 
-#3.用途
+# 3.用途
 
 使用pod update PODNAME，你可以只更新指定的pod（检查是否存在新版本并相应的更新这个pod）。
 相反pod install不会尝试更新已经安装的pod的版本。
@@ -62,7 +62,7 @@ Podfile.lock 文件介绍，这个文件会保持对每个pod已安装的版本�
 当你想要更新指定pod（或所有pod）的版本时，应该只使用pod update。
 
 
-#4. 提交Podfile.lock文件
+# 4. 提交Podfile.lock文件
 
 小贴士：
 
@@ -70,7 +70,7 @@ Podfile.lock 文件介绍，这个文件会保持对每个pod已安装的版本�
 否则，你将会打破上述关于pod install将会锁定你的pods的已安装版本的整个逻辑。
 
 
-#5. 场景示例
+# 5. 场景示例
 
 以下是一些场景例子列举了在工程周期中可能遭遇的各种使用情况。
 
@@ -116,7 +116,7 @@ Podfile.lock文件（应该被提交到git仓库中）的内容会保证用户2�
 让B从版本1.0.0升到版本1.1.0（同时Podfile.lock文件也随之更新），但是将pod C保持在1.0.0版本（不会更新到1.2.0）。
 
 
-#5. 在Podfile中使用准确版本号是不够的
+# 5. 在Podfile中使用准确版本号是不够的
 
 有些人可能想通过在他们的Podfile中指定pods的准确版本号，如pod ‘a’, ‘1.0.0’，就能够保证团队中的其他人拥有相同的版本。
 
