@@ -143,7 +143,15 @@ public：
 
 ### 结构
 
-![strategy](penglimin.github.io/assets/LeonpengPicture/DesignPattern/Strategy/strategy.png)
+![strategy](https://penglimin.github.io/assets/LeonpengPicture/DesignPattern/Strategy/strategy.png)
+
+
+
+
+
+
+
+
 
 
 
