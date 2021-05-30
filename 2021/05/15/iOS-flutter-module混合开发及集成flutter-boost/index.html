@@ -20,15 +20,15 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="">
-    <meta name="description" content="0. 本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost1. iOS+Flutter Module混合工程背景：项目采用 iOS + Flutter Module 混合开发  创建 iOS 工程 创建 Flutter Mo">
+    <meta name="description" content="本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两三年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost 一、 iOS+Flutter Module混合工程1. 创建 iOS 工程​         1.1 这个自己创建一个 iOS 工程。并是使用 cocoapods ​">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS+flutter_module混合开发及集成flutter_boost">
 <meta property="og:url" content="http://penglimin.github.io/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0. 本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost1. iOS+Flutter Module混合工程背景：项目采用 iOS + Flutter Module 混合开发  创建 iOS 工程 创建 Flutter Mo">
+<meta property="og:description" content="本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两三年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost 一、 iOS+Flutter Module混合工程1. 创建 iOS 工程​         1.1 这个自己创建一个 iOS 工程。并是使用 cocoapods ​">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-15T14:30:51.000Z">
-<meta property="article:modified_time" content="2021-05-15T14:37:52.285Z">
+<meta property="article:modified_time" content="2021-05-15T16:09:53.170Z">
 <meta property="article:author" content="Duke">
 <meta property="article:tag" content="Flutter">
 <meta name="twitter:card" content="summary">
@@ -285,7 +285,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">117</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -414,13 +414,63 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="0-本来想使用-flutter-boot-来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用-flutter-boot-工具，快速创建混合工程，并集成-Flutter-Boost"><a href="#0-本来想使用-flutter-boot-来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用-flutter-boot-工具，快速创建混合工程，并集成-Flutter-Boost" class="headerlink" title="0. 本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost"></a>0. 本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost</h3><h3 id="1-iOS-Flutter-Module混合工程"><a href="#1-iOS-Flutter-Module混合工程" class="headerlink" title="1. iOS+Flutter Module混合工程"></a>1. iOS+Flutter Module混合工程</h3><p>背景：项目采用 iOS + Flutter Module 混合开发</p>
-<ol>
-<li>创建 iOS 工程</li>
-<li>创建 Flutter Module</li>
-<li>iOS 集成 Flutter Module</li>
+        <p>本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两三年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost</p>
+<h1 id="一、-iOS-Flutter-Module混合工程"><a href="#一、-iOS-Flutter-Module混合工程" class="headerlink" title="一、 iOS+Flutter Module混合工程"></a>一、 iOS+Flutter Module混合工程</h1><h3 id="1-创建-iOS-工程"><a href="#1-创建-iOS-工程" class="headerlink" title="1. 创建 iOS 工程"></a>1. 创建 iOS 工程</h3><p>​         1.1 这个自己创建一个 iOS 工程。并是使用 cocoapods</p>
+<p>​          我是在flutterboost_test01文件夹下创建了一个  iOSProject 工程</p>
+<h3 id="2-创建-Flutter-Module"><a href="#2-创建-Flutter-Module" class="headerlink" title="2. 创建 Flutter Module"></a>2. 创建 Flutter Module</h3><p>​        2.1 使用 android studio 或者 终端命令都可以。</p>
+<p>​        我用的是终端命令。</p>
+<p>​        在你的iOS 工程 文件夹 同级目录（即 flutterboost_test01文件夹下）执行终端指令：</p>
+<pre><code>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter create -t module flutter_module</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>​        以上指令是创建一个名字为 flutter_module 的 Flutter Module</p>
+<h3 id="3-iOS-集成-Flutter-Module"><a href="#3-iOS-集成-Flutter-Module" class="headerlink" title="3. iOS 集成 Flutter Module"></a>3. iOS 集成 Flutter Module</h3><ol>
+<li>编辑 iOS 工程的 podfile 文件</li>
 </ol>
-<h3 id="2-iOS-Flutter-Module-混合工程-集成Flutter-Boost"><a href="#2-iOS-Flutter-Module-混合工程-集成Flutter-Boost" class="headerlink" title="2. iOS+Flutter Module 混合工程 集成Flutter Boost"></a>2. iOS+Flutter Module 混合工程 集成Flutter Boost</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. flutter_application_path = <span class="string">&#x27;../flutter_module&#x27;</span> <span class="comment"># ../flutter_module可根据实际目录修改路径</span></span><br><span class="line"><span class="number">2</span>. load File.join(flutter_application_path, <span class="string">&#x27;.ios&#x27;</span>, <span class="string">&#x27;Flutter&#x27;</span>, <span class="string">&#x27;podhelper.rb&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. install_all_flutter_pods(flutter_application_path)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>  编辑过后我的podfile文件是这样的：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Uncomment the next line to define a global platform for your project</span></span><br><span class="line"><span class="comment"># platform :ios, &#x27;9.0&#x27;</span></span><br><span class="line"></span><br><span class="line">flutter_application_path = <span class="string">&#x27;../flutter_module&#x27;</span> <span class="comment"># ../flutter_module可根据实际目录修改路径</span></span><br><span class="line">load File.join(flutter_application_path, <span class="string">&#x27;.ios&#x27;</span>, <span class="string">&#x27;Flutter&#x27;</span>, <span class="string">&#x27;podhelper.rb&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">target <span class="string">&#x27;iOSProject&#x27;</span> <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># Comment the next line if you don&#x27;t want to use dynamic frameworks</span></span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line">  install_all_flutter_pods(flutter_application_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Pods for iOSProject</span></span><br><span class="line"></span><br><span class="line">  target <span class="string">&#x27;iOSProjectTests&#x27;</span> <span class="keyword">do</span></span><br><span class="line">    inherit! <span class="symbol">:search_paths</span></span><br><span class="line">    <span class="comment"># Pods for testing</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  target <span class="string">&#x27;iOSProjectUITests&#x27;</span> <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Pods for testing</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol start="2">
+<li>然后 pod install</li>
+</ol>
+<p>至此，iOS 项目已经 集成了 Flutter Module</p>
+<h1 id="二、iOS-Flutter-Module-混合工程-集成Flutter-Boost"><a href="#二、iOS-Flutter-Module-混合工程-集成Flutter-Boost" class="headerlink" title="二、iOS+Flutter Module 混合工程 集成Flutter Boost"></a>二、iOS+Flutter Module 混合工程 集成Flutter Boost</h1><h3 id="1-flutter-Module-中-添加Flutter-Boost依赖"><a href="#1-flutter-Module-中-添加Flutter-Boost依赖" class="headerlink" title="1. flutter Module 中 添加Flutter_Boost依赖"></a>1. flutter Module 中 添加Flutter_Boost依赖</h3><p>​      1.1 修改flutter_module目录下pubspec.yaml文件，添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flutter_boost:</span><br><span class="line">  git:</span><br><span class="line">    url: &#39;https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;flutter_boost.git&#39;</span><br><span class="line">    ref: &#39;v3.0-beta.10&#39;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    你可能不知道添加在pubspec.yaml 文件的那个地方，</p>
+<p>​    是添加在 dependencies下： 我目前的dependencies:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># This version is used _only_ for the Runner app, which is used if you just do</span></span><br><span class="line"><span class="comment"># a `flutter run` or a `flutter make-host-app-editable`. It has no impact</span></span><br><span class="line"><span class="comment"># on any other native host app that you embed your Flutter project into.</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span><span class="string">+1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line">  <span class="attr">sdk:</span> <span class="string">&quot;&gt;=2.7.0 &lt;3.0.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dependencies:</span></span><br><span class="line">  <span class="attr">flutter:</span></span><br><span class="line">    <span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The following adds the Cupertino Icons font to your application.</span></span><br><span class="line">  <span class="comment"># Use with the CupertinoIcons class for iOS style icons.</span></span><br><span class="line">  <span class="attr">cupertino_icons:</span> <span class="string">^1.0.2</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">flutter_boost:</span></span><br><span class="line">    <span class="attr">git:</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">&#x27;https://github.com/alibaba/flutter_boost.git&#x27;</span></span><br><span class="line">      <span class="attr">ref:</span> <span class="string">&#x27;v3.0-beta.10&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dev_dependencies:</span></span><br><span class="line">  <span class="attr">flutter_test:</span></span><br><span class="line">    <span class="attr">sdk:</span> <span class="string">flutter</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># For information on the generic Dart part of this file, see the</span></span><br><span class="line"><span class="comment"># following page: https://dart.dev/tools/pub/pubspec</span></span><br><span class="line"></span><br><span class="line"><span class="attr">flutter:</span></span><br><span class="line">  <span class="comment"># The following line ensures that the Material Icons font is</span></span><br><span class="line">  <span class="comment"># included with your application, so that you can use the icons in</span></span><br><span class="line">  <span class="comment"># the material Icons class.</span></span><br><span class="line">  <span class="attr">uses-material-design:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># To add Flutter specific assets to your application, add an assets section,</span></span><br><span class="line">  <span class="comment"># like this:</span></span><br><span class="line">  <span class="comment"># assets:</span></span><br><span class="line">  <span class="comment">#   - images/a_dot_burr.jpeg</span></span><br><span class="line">  <span class="comment">#   - images/a_dot_ham.jpeg</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># An image asset can refer to one or more resolution-specific &quot;variants&quot;, see</span></span><br><span class="line">  <span class="comment"># https://flutter.dev/assets-and-images/#resolution-aware.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># For details regarding adding assets from package dependencies, see</span></span><br><span class="line">  <span class="comment"># https://flutter.dev/assets-and-images/#from-packages</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># To add Flutter specific custom fonts to your application, add a fonts</span></span><br><span class="line">  <span class="comment"># section here, in this &quot;flutter&quot; section. Each entry in this list should</span></span><br><span class="line">  <span class="comment"># have a &quot;family&quot; key with the font family name, and a &quot;fonts&quot; key with a</span></span><br><span class="line">  <span class="comment"># list giving the asset and other descriptors for the font. For</span></span><br><span class="line">  <span class="comment"># example:</span></span><br><span class="line">  <span class="comment"># fonts:</span></span><br><span class="line">  <span class="comment">#   - family: Schyler</span></span><br><span class="line">  <span class="comment">#     fonts:</span></span><br><span class="line">  <span class="comment">#       - asset: fonts/Schyler-Regular.ttf</span></span><br><span class="line">  <span class="comment">#       - asset: fonts/Schyler-Italic.ttf</span></span><br><span class="line">  <span class="comment">#         style: italic</span></span><br><span class="line">  <span class="comment">#   - family: Trajan Pro</span></span><br><span class="line">  <span class="comment">#     fonts:</span></span><br><span class="line">  <span class="comment">#       - asset: fonts/TrajanPro.ttf</span></span><br><span class="line">  <span class="comment">#       - asset: fonts/TrajanPro_Bold.ttf</span></span><br><span class="line">  <span class="comment">#         weight: 700</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># For details regarding fonts from package dependencies,</span></span><br><span class="line">  <span class="comment"># see https://flutter.dev/custom-fonts/#from-packages</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment"># This section identifies your Flutter project as a module meant for</span></span><br><span class="line">  <span class="comment"># embedding in a native host app.  These identifiers should _not_ ordinarily</span></span><br><span class="line">  <span class="comment"># be changed after generation - they are used to ensure that the tooling can</span></span><br><span class="line">  <span class="comment"># maintain consistency when adding or modifying assets and plugins.</span></span><br><span class="line">  <span class="comment"># They also do not have any bearing on your native host application&#x27;s</span></span><br><span class="line">  <span class="comment"># identifiers, which may be completely independent or the same as these.</span></span><br><span class="line">  <span class="attr">module:</span></span><br><span class="line">    <span class="attr">androidX:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">androidPackage:</span> <span class="string">com.example.flutter_module</span></span><br><span class="line">    <span class="attr">iosBundleIdentifier:</span> <span class="string">com.example.flutterModule</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​     </p>
+<p>​     1.2 终端下进入flutter_module目录，并执行flutter packages get 获取FlutterBoost包  (也可以在android studio 中 直接点击按钮 Pub get )</p>
+<p>​      我是在 android studio 中 直接点击按钮 Pub get</p>
+<p>​       稍等一会：看到 Messages</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Running &quot;flutter pub get&quot; in flutter_module...                     69.0s</span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>​    至此，flutter module 项目中就接入了 Flutter_Boost</p>
+<h3 id="2-原生项目接入Flutter-Boost"><a href="#2-原生项目接入Flutter-Boost" class="headerlink" title="2. 原生项目接入Flutter_Boost"></a>2. 原生项目接入Flutter_Boost</h3><p>   直接 在 iOS 项目 中 </p>
+<p>   执行pod install，安装依赖，就接入了 Flutter_Boost</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Analyzing dependencies</span><br><span class="line">Downloading dependencies</span><br><span class="line">Installing FlutterPluginRegistrant <span class="number">0.0</span>.<span class="number">1</span></span><br><span class="line">Installing flutter_boost (<span class="number">0.0</span>.<span class="number">2</span>)</span><br><span class="line">Generating Pods project</span><br><span class="line">Integrating client project</span><br><span class="line">Pod installation complete! There are <span class="number">4</span> dependencies from the Podfile <span class="keyword">and</span> <span class="number">4</span> total pods installed.</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="三、使用FlutterBoost"><a href="#三、使用FlutterBoost" class="headerlink" title="三、使用FlutterBoost"></a>三、使用FlutterBoost</h1><h3 id="修改AppDelegate"><a href="#修改AppDelegate" class="headerlink" title="修改AppDelegate"></a>修改AppDelegate</h3><p>s</p>
+
     </article>
     <!-- license  -->
     
@@ -428,13 +478,18 @@ height:50vh;
             <p>Author：<a href="http://penglimin.github.io">Duke</a>
             <p>原文链接：<a href="http://penglimin.github.io/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/">http://penglimin.github.io/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/</a>
             <p>发表日期：<a href="http://penglimin.github.io/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/">May 15th 2021, 10:30:51 pm</a>
-            <p>更新日期：<a href="http://penglimin.github.io/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/">May 15th 2021, 10:37:52 pm</a>
+            <p>更新日期：<a href="http://penglimin.github.io/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/">May 16th 2021, 12:09:53 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2021/05/18/Flutter-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/" title= "Flutter 命令合集">
+                    <div class="nextTitle">Flutter 命令合集</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -556,7 +611,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%9C%AC%E6%9D%A5%E6%83%B3%E4%BD%BF%E7%94%A8-flutter-boot-%E6%9D%A5%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA%E6%B7%B7%E5%90%88%E5%B7%A5%E7%A8%8B%E3%80%82%E4%BD%86%E6%98%AF%E5%8F%91%E7%8E%B0%E8%A1%8C%E4%B8%8D%E9%80%9A%E4%BA%86%EF%BC%8C%E9%97%B2%E9%B1%BC%E5%9B%A2%E9%98%9F%E6%9C%80%E8%BF%91%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%B4%E6%8A%A4%E4%B9%9F%E6%98%AF%E5%9C%A8%E4%B8%A4%E5%B9%B4%E5%89%8D%E4%BA%86%E3%80%82%E4%BC%9A%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E3%80%82%E6%89%80%E4%BB%A5%E4%B8%8D%E5%86%8D%E4%BD%BF%E7%94%A8-flutter-boot-%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA%E6%B7%B7%E5%90%88%E5%B7%A5%E7%A8%8B%EF%BC%8C%E5%B9%B6%E9%9B%86%E6%88%90-Flutter-Boost"><span class="toc-number">1.</span> <span class="toc-text">0. 本来想使用 flutter boot 来快速创建混合工程。但是发现行不通了，闲鱼团队最近的一次维护也是在两年前了。会出现问题。所以不再使用  flutter boot  工具，快速创建混合工程，并集成 Flutter Boost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-iOS-Flutter-Module%E6%B7%B7%E5%90%88%E5%B7%A5%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">1. iOS+Flutter Module混合工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-iOS-Flutter-Module-%E6%B7%B7%E5%90%88%E5%B7%A5%E7%A8%8B-%E9%9B%86%E6%88%90Flutter-Boost"><span class="toc-number">3.</span> <span class="toc-text">2. iOS+Flutter Module 混合工程 集成Flutter Boost</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81-iOS-Flutter-Module%E6%B7%B7%E5%90%88%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">一、 iOS+Flutter Module混合工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA-iOS-%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. 创建 iOS 工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA-Flutter-Module"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. 创建 Flutter Module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-iOS-%E9%9B%86%E6%88%90-Flutter-Module"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. iOS 集成 Flutter Module</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81iOS-Flutter-Module-%E6%B7%B7%E5%90%88%E5%B7%A5%E7%A8%8B-%E9%9B%86%E6%88%90Flutter-Boost"><span class="toc-number">2.</span> <span class="toc-text">二、iOS+Flutter Module 混合工程 集成Flutter Boost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-flutter-Module-%E4%B8%AD-%E6%B7%BB%E5%8A%A0Flutter-Boost%E4%BE%9D%E8%B5%96"><span class="toc-number">2.0.1.</span> <span class="toc-text">1. flutter Module 中 添加Flutter_Boost依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8E%9F%E7%94%9F%E9%A1%B9%E7%9B%AE%E6%8E%A5%E5%85%A5Flutter-Boost"><span class="toc-number">2.0.2.</span> <span class="toc-text">2. 原生项目接入Flutter_Boost</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BD%BF%E7%94%A8FlutterBoost"><span class="toc-number">3.</span> <span class="toc-text">三、使用FlutterBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9AppDelegate"><span class="toc-number">3.0.1.</span> <span class="toc-text">修改AppDelegate</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -598,9 +653,40 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 3
+        Total : 6
         </div>
         <!-- search  -->
         
@@ -613,6 +699,21 @@ top:50vh;
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2021/05/30/Flutter%E5%BC%82%E5%B8%B8%E4%B8%8ECrash%E6%94%B6%E9%9B%86/" >Flutter异常与Crash收集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2021/05/18/Flutter-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/" >Flutter 命令合集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/" >Dart开发语言</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -635,6 +736,8 @@ top:50vh;
     <div class="sidebar-tags-name">
     
         <span class="sidebar-tag-name" data-tags="Flutter"><span class="iconfont-archer">&#xe606;</span>Flutter</span>
+    
+        <span class="sidebar-tag-name" data-tags="Flutter  Dart"><span class="iconfont-archer">&#xe606;</span>Flutter  Dart</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

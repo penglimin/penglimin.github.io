@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Duke">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Duke">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="Dart是什么?2011 年 10 月，在丹麦召开的 GOTO 大会上，Google 发布了一种新的编程语言 Dart。  Dart 的最初定位也是一种运行在浏览器中的脚本语言。要解决 JavaScript 存在的、在语言本质上无法改进的缺陷。 为了推广 Dart，Google 甚至将自己的 Chrome 浏览器内置了 Dart VM，可以直接高效地运行 Dart 代码。而对于普通浏览器来说，Go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart开发语言">
+<meta property="og:url" content="http://penglimin.github.io/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Dart是什么?2011 年 10 月，在丹麦召开的 GOTO 大会上，Google 发布了一种新的编程语言 Dart。  Dart 的最初定位也是一种运行在浏览器中的脚本语言。要解决 JavaScript 存在的、在语言本质上无法改进的缺陷。 为了推广 Dart，Google 甚至将自己的 Chrome 浏览器内置了 Dart VM，可以直接高效地运行 Dart 代码。而对于普通浏览器来说，Go">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-18T14:58:26.000Z">
+<meta property="article:modified_time" content="2021-05-18T16:16:17.908Z">
+<meta property="article:author" content="Duke">
+<meta property="article:tag" content="Flutter  Dart">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>Dart开发语言 · Duke&#39;s 🛖</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Duke&#39;s 🛖</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Dart开发语言</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Duke's 🛖</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Dart开发语言
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Flutter  Dart">Flutter  Dart</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">5.8k</span>Reading time: <span class="post-count reading-time">22 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/05/18</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Dart是什么"><a href="#Dart是什么" class="headerlink" title="Dart是什么?"></a>Dart是什么?</h1><p>2011 年 10 月，在丹麦召开的 GOTO 大会上，Google 发布了一种新的编程语言 Dart。</p>
+<p> Dart 的最初定位也是一种运行在浏览器中的脚本语言。要解决 JavaScript 存在的、在语言本质上无法改进的缺陷。</p>
+<p>为了推广 Dart，Google 甚至将自己的 Chrome 浏览器内置了 Dart VM，可以直接高效地运行 Dart 代码。而对于普通浏览器来说，Google 也提供了一套能够将 Dart 代码编译成 JavaScript 代码的转换工具。这样一来，开发者们就可以毫无顾虑地使用 Dart 去开发了，而不必担心兼容问题。再加上出身名门，Dart 在一开始就赢得了部分前端开发者的关注。</p>
+<p>但，JavaScript 的生命力似乎比预想的更强大。</p>
+<p>Dart 节节败退。</p>
+<p>2015 年，在听取了大量开发者的反馈后，Google 决定将内置的 Dart VM 引擎从 Chrome 移除，这对 Dart 的发展来说是重大挫折，替代 JavaScript 就更无从谈起了。</p>
+<p>在 Google 内部孵化了移动开发框架 Flutter，弯道超车进入了移动开发的领域；而在 Google 未来的操作系统 Fuchsia 中，Dart 更是被指定为官方的开发语言。</p>
+<h1 id="Dart-的特性"><a href="#Dart-的特性" class="headerlink" title="Dart 的特性"></a>Dart 的特性</h1><h3 id="JIT-与-AOT"><a href="#JIT-与-AOT" class="headerlink" title="JIT 与 AOT"></a>JIT 与 AOT</h3><p>语言在运行之前通常都需要编译，JIT 和 AOT 则是最常见的两种编译模式。</p>
+<ul>
+<li>JIT 在运行时即时编译，在开发周期中使用，可以动态下发和执行代码，开发测试效率高，但运行速度和执行性能则会因为运行时即时编译受到影响。</li>
+<li>AOT 即提前编译，可以生成被直接执行的二进制代码，运行速度快、执行性能表现好，但每次执行前都需要提前编译，开发测试效率低。</li>
+</ul>
+<p>总结来讲，在开发期使用 JIT 编译，可以缩短产品的开发周期。Flutter 最受欢迎的功能之一热重载，正是基于此特性。而在发布期使用 AOT，就不需要像 React Native 那样在跨平台 JavaScript 代码和原生 Android、iOS 代码之间建立低效的方法调用映射关系。所以说，Dart 具有运行速度快、执行性能好的特点。</p>
+<h3 id="内存分配与垃圾回收"><a href="#内存分配与垃圾回收" class="headerlink" title="内存分配与垃圾回收"></a>内存分配与垃圾回收</h3><p>Dart VM 的内存分配策略比较简单，创建对象时只需要在堆上移动指针，内存增长始终是线性的，省去了查找可用内存的过程。</p>
+<p>在 Dart 中，并发是通过 Isolate 实现的。Isolate 是类似于线程但不共享内存，独立运行的 worker。这样的机制，就可以让 Dart 实现无锁的快速分配。</p>
+<p>Dart 的垃圾回收，则是采用了多生代算法。新生代在回收内存时采用“半空间”机制，触发垃圾回收时，Dart 会将当前半空间中的“活跃”对象拷贝到备用空间，然后整体释放当前空间的所有内存。回收过程中，Dart 只需要操作少量的“活跃”对象，没有引用的大量“死亡”对象则被忽略，这样的回收机制很适合 Flutter 框架中大量 Widget 销毁重建的场景。</p>
+<h3 id="单线程模型"><a href="#单线程模型" class="headerlink" title="单线程模型"></a>单线程模型</h3><p>支持并发执行线程的高级语言（比如，C++、Java、Objective-C），大都以抢占式的方式切换线程，即：每个线程都会被分配一个固定的时间片来执行，超过了时间片后线程上下文将被抢占后切换。如果这时正在更新线程间的共享资源，抢占后就可能导致数据不同步的问题。</p>
+<p>解决这一问题的典型方法是，使用锁来保护共享资源，但锁本身又可能会带来性能损耗，甚至出现死锁等更严重的问题。</p>
+<p>这时，Dart 是单线程模型的优势就体现出来了，因为它天然不存在资源竞争和状态同步的问题。这就意味着，一旦某个函数开始执行，就将执行到这个函数结束，而不会被其他 Dart 代码打断。</p>
+<p>所以，<strong>Dart 中并没有线程，只有 Isolate（隔离区）</strong>。Isolates 之间不会共享内存，就像几个运行在不同进程中的 worker，通过事件循环（Event Looper）在事件队列（Event Queue）上传递消息通信。</p>
+<h3 id="无需单独的声明式布局语言"><a href="#无需单独的声明式布局语言" class="headerlink" title="无需单独的声明式布局语言"></a>无需单独的声明式布局语言</h3><p>在 Flutter 中，界面布局直接通过 Dart 编码来定义。</p>
+<p>Dart 声明式编程布局易于阅读和可视化，使得 Flutter 并不需要类似 JSX 或 XML 的声明式布局语言。所有的布局都使用同一种格式，也使得 Flutter 很容易提供高级工具使布局更简单。</p>
+<p>开发过程也不需要可视化界面构建器，因为热重载可以让我们立即在手机上看到运行效果。</p>
+<h3 id="Dart-的未来"><a href="#Dart-的未来" class="headerlink" title="Dart 的未来"></a>Dart 的未来</h3><p><strong>Dart 是否能够成功，目前来看主要取决于 Flutter 和 Fuchsia 能否成功</strong>。<strong>而，Flutter 是构建 Fuchsia 的 UI 开发框架，因此这个问题也变成了 Flutter 能否成功。</strong></p>
+<h3 id="Dart-语言基础"><a href="#Dart-语言基础" class="headerlink" title="Dart 语言基础"></a>Dart 语言基础</h3><h5 id="初体验"><a href="#初体验" class="headerlink" title="初体验"></a>初体验</h5><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">printInteger(<span class="built_in">int</span> a) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;Hello world, this is <span class="subst">$a</span>.&#x27;</span>); </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">main() &#123;</span><br><span class="line">  <span class="keyword">var</span> number = <span class="number">2019</span>; </span><br><span class="line">  printInteger(number); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dart 要求以 main 函数作为执行的入口</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Dart-的变量与类型"><a href="#Dart-的变量与类型" class="headerlink" title="Dart 的变量与类型"></a>Dart 的变量与类型</h5><p>var 或者具体的类型来声明一个变量</p>
+<p>使用 var 定义变量时，表示类型是交由编译器推断决定</p>
+<p>3.也可以用静态类型去定义变量，更清楚地跟编译器表达你的意图，这样编辑器和编译器就能使用这些静态类型，向你提供代码补全或编译警告的提示了。</p>
+<ol start="4">
+<li><p>在默认情况下，未初始化的变量的值都是 null，因此我们不用担心无法判定一个传递过来的、未定义变量到底是 undefined，还是烫烫烫而写一堆冗长的判断语句了。</p>
+</li>
+<li><p>Dart 是类型安全的语言，并且所有类型都是对象类型，都继承自顶层类型 Object，因此一切变量的值都是类的实例（即对象），甚至数字、布尔值、函数和 null 也都是继承自 Object 的对象。</p>
+</li>
+<li><p>Dart 内置了一些基本类型，如 num、bool、String、List 和 Map，在不引入其他库的情况下可以使用它们去声明变量</p>
+</li>
+<li><h3 id="num、bool-与-String"><a href="#num、bool-与-String" class="headerlink" title="num、bool 与 String"></a>num、bool 与 String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Dart 的数值类型 num，只有两种子类：即 64 位 int 和符合 IEEE 754 标准的 64 位 double。前者代表整数类型，而后者则是浮点数的抽象。在正常情况下，它们的精度与取值范围就足够满足我们的诉求了。</span><br><span class="line"></span><br><span class="line">int x &#x3D; 1;</span><br><span class="line">int hex &#x3D; 0xEEADBEEF;</span><br><span class="line">double y &#x3D; 1.1;</span><br><span class="line">double exponents &#x3D; 1.13e5;</span><br><span class="line">int roundY &#x3D; y.round();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>除了常见的基本运算符，比如 +、-、*、/，以及位运算符外，你还能使用继承自 num 的 abs()、round() 等方法，来实现求绝对值、取整的功能。</p>
+<p>如果还有其他高级运算方法的需求 num 无法满足，你可以试用一下 dart:math 库。这个库提供了诸如三角函数、指数、对数、平方根等高级函数。</p>
+<p><strong>为了表示布尔值，Dart 使用了一种名为 bool 的类型</strong>。在 Dart 里，只有两个对象具有 bool 类型：true 和 false，它们都是编译时常量。</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 检查是否为 0.</span><br><span class="line">var number &#x3D; 0;</span><br><span class="line">assert(number &#x3D;&#x3D; 0);</span><br><span class="line">&#x2F;&#x2F; assert(number); 错误</span><br></pre></td></tr></table></figure>
+
+<p>Dart 的 String 由 UTF-16 的字符串组成。<strong>和 JavaScript 一样，构造字符串字面量时既能使用单引号也能使用双引号，还能在字符串中嵌入变量或表达式：你可以使用</strong>${express}**把一个表达式的值放进字符串。而如果是一个标识符，你可以省略{}。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var s &#x3D; &#39;cat&#39;;</span><br><span class="line">var s1 &#x3D; &#39;this is a uppercased string: $&#123;s.toUpperCase()&#125;&#39;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>为了获得内嵌对象的字符串，Dart 会调用对象的**toString()**方法。而常见字符串的拼接，Dart 则通过内置运算符“+”实现。比如，下面这条语句会如你所愿声明一个值为’Hello World!’的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var s2 &#x3D; &#39;Hello&#39; + &#39; &#39; + &#39;World!&#39; ;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对于多行字符串的构建，你可以通过三个单引号或三个双引号的方式声明，这与 Python 是一致的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var s3 &#x3D; &quot;&quot;&quot;This is a</span><br><span class="line">multi-line string.&quot;&quot;&quot;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="List-与-Map"><a href="#List-与-Map" class="headerlink" title="List 与 Map"></a>List 与 Map</h5><p>其他编程语言中常见的数组和字典类型，在 Dart 中的对应实现是 List 和 Map，统称为集合类型。它们的声明和使用很简单，和 JavaScript 中的用法类似。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; [&quot;Tom&quot;, &quot;Andy&quot;, &quot;Jack&quot;];</span><br><span class="line">var arr2 &#x3D; List.of([1,2,3]);</span><br><span class="line">arr2.add(499);</span><br><span class="line">arr2.forEach((v) &#x3D;&gt; print(&#39;$&#123;v&#125;&#39;));</span><br><span class="line">  </span><br><span class="line">var map1 &#x3D; &#123;&quot;name&quot;: &quot;Tom&quot;, &#39;sex&#39;: &#39;male&#39;&#125;; </span><br><span class="line">var map2 &#x3D; new Map();</span><br><span class="line">map2[&#39;name&#39;] &#x3D; &#39;Tom&#39;;</span><br><span class="line">map2[&#39;sex&#39;] &#x3D; &#39;male&#39;;</span><br><span class="line">map2.forEach((k,v) &#x3D;&gt; print(&#39;$&#123;k&#125;: $&#123;v&#125;&#39;)); </span><br></pre></td></tr></table></figure>
+
+
+
+<p>容器里的元素也需要有类型，比如上述代码中 arr2 的类型是<strong>List</strong>，map2 的类型则为<strong>Map</strong>。Dart 会自动根据上下文进行类型推断，所以你后续往容器内添加的元素也必须遵照这一类型。</p>
+<p>如果编译器自动推断的类型不符合预期，我们当然可以在声明时显式地把类型标记出来，不仅可以让代码提示更友好一些，更重要的是可以让静态分析器帮忙检查字面量中的错误，解除类型不匹配带来的安全隐患或是 Bug。</p>
+<p>以上述代码为例，如果往 arr2 集合中添加一个浮点数**arr2.add(1.1)**，尽管语义上合法，但编译器会提示类型不匹配，从而导致编译失败。</p>
+<p>和 Java 语言类似，在初始化集合实例对象时，你可以为它的类型添加约束，也可以用于后续判断集合类型。</p>
+<p>下面的这段代码，在增加了类型约束后，语义是不是更清晰了？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var arr1 &#x3D; &lt;String&gt;[&#39;Tom&#39;, &#39;Andy&#39;, &#39;Jack&#39;];</span><br><span class="line">var arr2 &#x3D; new List&lt;int&gt;.of([1,2,3]);</span><br><span class="line">arr2.add(499);</span><br><span class="line">arr2.forEach((v) &#x3D;&gt; print(&#39;$&#123;v&#125;&#39;));</span><br><span class="line">print(arr2 is List&lt;int&gt;); &#x2F;&#x2F; true</span><br><span class="line"> </span><br><span class="line">var map1 &#x3D; &lt;String, String&gt;&#123;&#39;name&#39;: &#39;Tom&#39;,&#39;sex&#39;: &#39;male&#39;,&#125;;</span><br><span class="line">var map2 &#x3D; new Map&lt;String, String&gt;();</span><br><span class="line">map2[&#39;name&#39;] &#x3D; &#39;Tom&#39;;</span><br><span class="line">map2[&#39;sex&#39;] &#x3D; &#39;male&#39;;</span><br><span class="line">map2.forEach((k,v) &#x3D;&gt; print(&#39;$&#123;k&#125;: $&#123;v&#125;&#39;)); </span><br><span class="line">print(map2 is Map&lt;String, String&gt;); &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="常量定义"><a href="#常量定义" class="headerlink" title="常量定义"></a>常量定义</h5><p>如果你想定义不可变的变量，则需要在定义变量前加上 final 或 const 关键字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const，表示变量在编译期间即能确定的值；</span><br><span class="line">final 则不太一样，用它定义的变量可以在运行时确定值，而一旦确定后就不可再变。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>声明 const 常量与 final 常量的典型例子，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">final name &#x3D; &#39;Andy&#39;;</span><br><span class="line">const count &#x3D; 3;</span><br><span class="line"> </span><br><span class="line">var x &#x3D; 70;  </span><br><span class="line">var y &#x3D; 30;</span><br><span class="line">final z &#x3D; x &#x2F; y;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，const 适用于定义编译常量（字面量固定值）的场景，而 final 适用于定义运行时常量的场景。</p>
+<p>编程语言虽然千差万别，但归根结底，它们的设计思想无非就是回答两个问题：</p>
+<ul>
+<li>如何表示信息；</li>
+<li>如何处理信息。</li>
+</ul>
+<p>作为一门真正面向对象的编程语言，Dart 将处理信息的过程抽象为了对象，以结构化的方式将功能分解，而函数、类与运算符就是抽象中最重要的手段。</p>
+<h5 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h5><p>函数是一段用来独立地完成某个功能的代码。在 Dart 中，所有类型都是对象类型，函数也是对象，它的类型叫作 Function。这意味着函数也可以被定义为变量，甚至可以被定义为参数传递给另一个函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">bool isZero(int number) &#123; &#x2F;&#x2F; 判断整数是否为 0</span><br><span class="line">  return number &#x3D;&#x3D; 0; </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void printInfo(int number,Function check) &#123; &#x2F;&#x2F; 用 check 函数来判断整数是否为 0</span><br><span class="line">  print(&quot;$number is Zero: $&#123;check(number)&#125;&quot;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">Function f &#x3D; isZero;</span><br><span class="line">int x &#x3D; 10;</span><br><span class="line">int y &#x3D; 0;</span><br><span class="line">printInfo(x,f);  &#x2F;&#x2F; 输出 10 is Zero: false</span><br><span class="line">printInfo(y,f);  &#x2F;&#x2F; 输出 0 is Zero: true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果函数体只有一行表达式，就比如上面示例中的 isZero 和 printInfo 函数，我们还可以像 JavaScript 语言那样用箭头函数来简化这个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bool isZero(int number) &#x3D;&gt; number &#x3D;&#x3D; 0;</span><br><span class="line"> </span><br><span class="line">void printInfo(int number,Function check) &#x3D;&gt; print(&quot;$number is Zero: $&#123;check(number)&#125;&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>有时，一个函数中可能需要传递多个参数。那么，如何让这类函数的参数声明变得更加优雅、可维护，同时降低调用者的使用成本呢？</p>
+<p>C++ 与 Java 的做法是，提供函数的重载，即提供同名但参数不同的函数。但<strong>Dart 认为重载会导致混乱，因此从设计之初就不支持重载，而是提供了可选命名参数和可选参数</strong>。</p>
+<p>具体方式是，在声明函数时：</p>
+<ul>
+<li>给参数增加{}，以 paramName: value 的方式指定调用参数，也就是可选命名参数；</li>
+<li>给参数增加 []，则意味着这些参数是可以忽略的，也就是可选参数。</li>
+</ul>
+<p>在使用这两种方式定义函数时，我们还可以在参数未传递时设置默认值。我以一个只有两个参数的简单函数为例，来和你说明这两种方式的具体用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 要达到可选命名参数的用法，那就在定义函数的时候给参数加上 &#123;&#125;</span><br><span class="line">void enable1Flags(&#123;bool bold, bool hidden&#125;) &#x3D;&gt; print(&quot;$bold , $hidden&quot;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 定义可选命名参数时增加默认值</span><br><span class="line">void enable2Flags(&#123;bool bold &#x3D; true, bool hidden &#x3D; false&#125;) &#x3D;&gt; print(&quot;$bold ,$hidden&quot;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 可忽略的参数在函数定义时用 [] 符号指定</span><br><span class="line">void enable3Flags(bool bold, [bool hidden]) &#x3D;&gt; print(&quot;$bold ,$hidden&quot;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 定义可忽略参数时增加默认值</span><br><span class="line">void enable4Flags(bool bold, [bool hidden &#x3D; false]) &#x3D;&gt; print(&quot;$bold ,$hidden&quot;);</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 可选命名参数函数调用</span><br><span class="line">enable1Flags(bold: true, hidden: false); &#x2F;&#x2F;true, false</span><br><span class="line">enable1Flags(bold: true); &#x2F;&#x2F;true, null</span><br><span class="line">enable2Flags(bold: false); &#x2F;&#x2F;false, false</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 可忽略参数函数调用</span><br><span class="line">enable3Flags(true, false); &#x2F;&#x2F;true, false</span><br><span class="line">enable3Flags(true,); &#x2F;&#x2F;true, null</span><br><span class="line">enable4Flags(true); &#x2F;&#x2F;true, false</span><br><span class="line">enable4Flags(true,true); &#x2F;&#x2F; true, true</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>在 Flutter 中会大量用到可选命名参数的方式，你一定要记住它的用法。</strong></p>
+<h5 id="类"><a href="#类" class="headerlink" title="类"></a>类</h5><p>类是特定类型的数据和方法的集合，也是创建对象的模板。与其他语言一样，Dart 为类概念提供了内置支持。</p>
+<h5 id="类的定义及初始化"><a href="#类的定义及初始化" class="headerlink" title="类的定义及初始化"></a>类的定义及初始化</h5><p>Dart 是面向对象的语言，每个对象都是一个类的实例，都继承自顶层类型 Object。在 Dart 中，实例变量与实例方法、类变量与类方法的声明与 Java 类似</p>
+<p>值得一提的是，Dart 中并没有 public、protected、private 这些关键字，我们只要在声明变量与方法时，在前面加上“_”即可作为 private 方法使用。如果不加“_”，则默认为 public。不过，<strong>“_”的限制范围并不是类访问级别的，而是库访问级别</strong>。</p>
+<p>在 Point 类中，定义了两个成员变量 x 和 y，通过构造函数语法糖进行初始化，成员函数 printInfo 的作用是打印它们的信息；而类变量 factor，则在声明时就已经赋好了默认值 0，类函数 printZValue 会打印出它的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  num x, y;</span><br><span class="line">  static num factor &#x3D; 0;</span><br><span class="line">  &#x2F;&#x2F; 语法糖，等同于在函数体内：this.x &#x3D; x;this.y &#x3D; y;</span><br><span class="line">  Point(this.x,this.y);</span><br><span class="line">  void printInfo() &#x3D;&gt; print(&#39;($x, $y)&#39;);</span><br><span class="line">  static void printZValue() &#x3D;&gt; print(&#39;$factor&#39;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var p &#x3D; new Point(100,200); &#x2F;&#x2F; new 关键字可以省略</span><br><span class="line">p.printInfo();  &#x2F;&#x2F; 输出 (100, 200);</span><br><span class="line">Point.factor &#x3D; 10;</span><br><span class="line">Point.printZValue(); &#x2F;&#x2F; 输出 10</span><br></pre></td></tr></table></figure>
+
+
+
+<p>有时候类的实例化需要根据参数提供多种初始化方式。除了可选命名参数和可选参数之外，Dart 还提供了<strong>命名构造函数</strong>的方式，使得类的实例化过程语义更清晰。</p>
+<p>此外，<strong>与 C++ 类似，Dart 支持初始化列表</strong>。在构造函数的函数体真正执行之前，你还有机会给实例变量赋值，甚至重定向至另一个构造函数。</p>
+<p>如下面实例所示，Point 类中有两个构造函数 Point.bottom 与 Point，其中：Point.bottom 将其成员变量的初始化重定向到了 Point 中，而 Point 则在初始化列表中为 z 赋上了默认值 0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  num x, y, z;</span><br><span class="line">  Point(this.x, this.y) : z &#x3D; 0; &#x2F;&#x2F; 初始化变量 z</span><br><span class="line">  Point.bottom(num x) : this(x, 0); &#x2F;&#x2F; 重定向构造函数</span><br><span class="line">  void printInfo() &#x3D;&gt; print(&#39;($x,$y,$z)&#39;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var p &#x3D; Point.bottom(100);</span><br><span class="line">p.printInfo(); &#x2F;&#x2F; 输出 (100,0,0)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h3><p>在面向对象的编程语言中，将其他类的变量与方法纳入本类中进行复用的方式一般有两种：<strong>继承父类和接口实现</strong>。当然，在 Dart 也不例外。</p>
+<p>在 Dart 中，你可以对同一个父类进行继承或接口实现：</p>
+<ul>
+<li>继承父类意味着，子类由父类派生，会自动获取父类的成员变量和方法实现，子类可以根据需要覆写构造函数及父类方法；</li>
+<li>接口实现则意味着，子类获取到的仅仅是接口的成员变量符号和方法符号，需要重新实现成员变量，以及方法的声明和初始化，否则编译器会报错。</li>
+</ul>
+<h5 id="在-Dart-中继承和接口的差别"><a href="#在-Dart-中继承和接口的差别" class="headerlink" title="在 Dart 中继承和接口的差别"></a><strong>在 Dart 中继承和接口的差别</strong></h5><p>Vector 通过继承 Point 的方式增加了成员变量，并覆写了 printInfo 的实现；而 Coordinate，则通过接口实现的方式，覆写了 Point 的变量定义及函数实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  num x &#x3D; 0, y &#x3D; 0;</span><br><span class="line">  void printInfo() &#x3D;&gt; print(&#39;($x,$y)&#39;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F;Vector 继承自 Point</span><br><span class="line">class Vector extends Point&#123;</span><br><span class="line">  num z &#x3D; 0;</span><br><span class="line">  @override</span><br><span class="line">  void printInfo() &#x3D;&gt; print(&#39;($x,$y,$z)&#39;); &#x2F;&#x2F; 覆写了 printInfo 实现</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F;Coordinate 是对 Point 的接口实现</span><br><span class="line">class Coordinate implements Point &#123;</span><br><span class="line">  num x &#x3D; 0, y &#x3D; 0; &#x2F;&#x2F; 成员变量需要重新声明</span><br><span class="line">  void printInfo() &#x3D;&gt; print(&#39;($x,$y)&#39;); &#x2F;&#x2F; 成员函数需要重新声明实现</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var xxx &#x3D; Vector(); </span><br><span class="line">xxx</span><br><span class="line">  ..x &#x3D; 1</span><br><span class="line">  ..y &#x3D; 2</span><br><span class="line">  ..z &#x3D; 3; &#x2F;&#x2F; 级联运算符，等同于 xxx.x&#x3D;1; xxx.y&#x3D;2;xxx.z&#x3D;3;</span><br><span class="line">xxx.printInfo(); &#x2F;&#x2F; 输出 (1,2,3)</span><br><span class="line"> </span><br><span class="line">var yyy &#x3D; Coordinate();</span><br><span class="line">yyy</span><br><span class="line">  ..x &#x3D; 1</span><br><span class="line">  ..y &#x3D; 2; &#x2F;&#x2F; 级联运算符，等同于 yyy.x&#x3D;1; yyy.y&#x3D;2;</span><br><span class="line">yyy.printInfo(); &#x2F;&#x2F; 输出 (1,2)</span><br><span class="line">print (yyy is Point); &#x2F;&#x2F;true</span><br><span class="line">print(yyy is Coordinate); &#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看出，子类 Coordinate 采用接口实现的方式，仅仅是获取到了父类 Point 的一个“空壳子”，只能从语义层面当成接口 Point 来用，但并不能复用 Point 的原有实现。那么，<strong>我们是否能够找到方法去复用 Point 的对应方法实现呢？</strong></p>
+<p>也许你很快就想到了，我可以让 Coordinate 继承 Point，来复用其对应的方法。但，如果 Coordinate 还有其他的父类，我们又该如何处理呢？</p>
+<p>其实，<strong>除了继承和接口实现之外，Dart 还提供了另一种机制来实现类的复用，即“混入”（Mixin）</strong>。混入鼓励代码重用，可以被视为具有实现方法的接口。这样一来，不仅可以解决 Dart 缺少对多重继承的支持问题，还能够避免由于多重继承可能导致的歧义（菱形问题）。</p>
+<p>备注：继承歧义，也叫菱形问题，是支持多继承的编程语言中一个相当棘手的问题。当 B 类和 C 类继承自 A 类，而 D 类继承自 B 类和 C 类时会产生歧义。如果 A 中有一个方法在 B 和 C 中已经覆写，而 D 没有覆写它，那么 D 继承的方法的版本是 B 类，还是 C 类的呢？</p>
+<p><strong>要使用混入，只需要 with 关键字即可</strong>。我们来试着改造 Coordinate 的实现，把类中的变量声明和函数实现全部删掉：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Coordinate with Point &#123;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">var yyy &#x3D; Coordinate();</span><br><span class="line">print (yyy is Point); &#x2F;&#x2F;true</span><br><span class="line">print(yyy is Coordinate); &#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到，通过混入，一个类里可以以非继承的方式使用其他类中的变量与方法，效果正如你想象的那样。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>Dart 和绝大部分编程语言的运算符一样，所以你可以用熟悉的方式去执行程序代码运算。不过，<strong>Dart 多了几个额外的运算符，用于简化处理变量实例缺失（即 null）的情况</strong>。</p>
+<ul>
+<li><strong>?.运算符</strong>：假设 Point 类有 printInfo() 方法，p 是 Point 的一个可能为 null 的实例。那么，p 调用成员方法的安全代码，可以简化为 p?.printInfo() ，表示 p 为 null 的时候跳过，避免抛出异常。</li>
+<li><strong>??=运算符</strong>：如果 a 为 null，则给 a 赋值 value，否则跳过。这种用默认值兜底的赋值语句在 Dart 中我们可以用 a ??= value 表示。</li>
+<li><strong>??运算符</strong>：如果 a 不为 null，返回 a 的值，否则返回 b。在 Java 或者 C++ 中，我们需要通过三元表达式 (a != null)? a : b 来实现这种情况。而在 Dart 中，这类代码可以简化为 a ?? b。</li>
+</ul>
+<p><strong>在 Dart 中，一切都是对象，就连运算符也是对象成员函数的一部分。</strong></p>
+<p>对于系统的运算符，一般情况下只支持基本数据类型和标准库中提供的类型。而对于用户自定义的类，如果想支持基本操作，比如比较大小、相加相减等，则需要用户自己来定义关于这个运算符的具体实现。</p>
+<p><strong>Dart 提供了类似 C++ 的运算符覆写机制</strong>，使得我们不仅可以覆写方法，还可以覆写或者自定义运算符。</p>
+<p>接下来，我们一起看一个 Vector 类中自定义“+”运算符和覆写”==”运算符的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Vector &#123;</span><br><span class="line">  num x, y;</span><br><span class="line">  Vector(this.x, this.y);</span><br><span class="line">  &#x2F;&#x2F; 自定义相加运算符，实现向量相加</span><br><span class="line">  Vector operator +(Vector v) &#x3D;&gt;  Vector(x + v.x, y + v.y);</span><br><span class="line">  &#x2F;&#x2F; 覆写相等运算符，判断向量相等</span><br><span class="line">  bool operator &#x3D;&#x3D; (dynamic v) &#x3D;&gt; x &#x3D;&#x3D; v.x &amp;&amp; y &#x3D;&#x3D; v.y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">final x &#x3D; Vector(3, 3);</span><br><span class="line">final y &#x3D; Vector(2, 2);</span><br><span class="line">final z &#x3D; Vector(1, 1);</span><br><span class="line">print(x &#x3D;&#x3D; (y + z)); &#x2F;&#x2F;  输出 true</span><br></pre></td></tr></table></figure>
+
+
+
+<p>operator 是 Dart 的关键字，与运算符一起使用，表示一个类成员运算符函数。在理解时，我们应该把 operator 和运算符作为整体，看作是一个成员函数名。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://penglimin.github.io">Duke</a>
+            <p>原文链接：<a href="http://penglimin.github.io/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">http://penglimin.github.io/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/</a>
+            <p>发表日期：<a href="http://penglimin.github.io/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">May 18th 2021, 10:58:26 pm</a>
+            <p>更新日期：<a href="http://penglimin.github.io/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">May 19th 2021, 12:16:17 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2021/05/30/Flutter%E5%BC%82%E5%B8%B8%E4%B8%8ECrash%E6%94%B6%E9%9B%86/" title= "Flutter异常与Crash收集">
+                    <div class="nextTitle">Flutter异常与Crash收集</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2021/05/18/Flutter-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/" title= "Flutter 命令合集">
+                    <div class="prevTitle">Flutter 命令合集</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:1601778775@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Dart%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">Dart是什么?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dart-%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">Dart 的特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JIT-%E4%B8%8E-AOT"><span class="toc-number">2.0.1.</span> <span class="toc-text">JIT 与 AOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.0.2.</span> <span class="toc-text">内存分配与垃圾回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.0.3.</span> <span class="toc-text">单线程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E9%9C%80%E5%8D%95%E7%8B%AC%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E5%B8%83%E5%B1%80%E8%AF%AD%E8%A8%80"><span class="toc-number">2.0.4.</span> <span class="toc-text">无需单独的声明式布局语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dart-%E7%9A%84%E6%9C%AA%E6%9D%A5"><span class="toc-number">2.0.5.</span> <span class="toc-text">Dart 的未来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dart-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="toc-number">2.0.6.</span> <span class="toc-text">Dart 语言基础</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-number">2.0.6.0.1.</span> <span class="toc-text">初体验</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Dart-%E7%9A%84%E5%8F%98%E9%87%8F%E4%B8%8E%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.0.6.0.2.</span> <span class="toc-text">Dart 的变量与类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#num%E3%80%81bool-%E4%B8%8E-String"><span class="toc-number">2.0.7.</span> <span class="toc-text">num、bool 与 String</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#List-%E4%B8%8E-Map"><span class="toc-number">2.0.7.0.1.</span> <span class="toc-text">List 与 Map</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">2.0.7.0.2.</span> <span class="toc-text">常量定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">2.0.7.0.3.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-number">2.0.7.0.4.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.0.7.0.5.</span> <span class="toc-text">类的定义及初始化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E7%94%A8"><span class="toc-number">2.0.8.</span> <span class="toc-text">复用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8-Dart-%E4%B8%AD%E7%BB%A7%E6%89%BF%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B7%AE%E5%88%AB"><span class="toc-number">2.0.8.0.1.</span> <span class="toc-text">在 Dart 中继承和接口的差别</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">2.2.</span> <span class="toc-text">运算符</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 6
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2021/05/30/Flutter%E5%BC%82%E5%B8%B8%E4%B8%8ECrash%E6%94%B6%E9%9B%86/" >Flutter异常与Crash收集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2021/05/18/Flutter-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/" >Flutter 命令合集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/" >Dart开发语言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/" >iOS+flutter_module混合开发及集成flutter_boost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span><a class="archive-post-title" href= "/2021/04/18/github-hexo-hexo-theme-archer/" >github-hexo-hexo-theme-archer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span><a class="archive-post-title" href= "/2021/04/18/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Flutter"><span class="iconfont-archer">&#xe606;</span>Flutter</span>
+    
+        <span class="sidebar-tag-name" data-tags="Flutter  Dart"><span class="iconfont-archer">&#xe606;</span>Flutter  Dart</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Duke"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
