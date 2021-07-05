@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="Duke">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Duke">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="12345678910&#x2F;&#x2F; Define a function.void printInteger(int aNumber) &amp;#123;  print(&amp;#x27;The number is $aNumber.&amp;#x27;); &#x2F;&#x2F; Print to console.&amp;#125;&#x2F;&#x2F; This is where the app starts executing.void main() &amp;#123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart 开发语言概览 - 01">
+<meta property="og:url" content="http://penglimin.github.io/2021/07/05/Dart-%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12345678910&#x2F;&#x2F; Define a function.void printInteger(int aNumber) &amp;#123;  print(&amp;#x27;The number is $aNumber.&amp;#x27;); &#x2F;&#x2F; Print to console.&amp;#125;&#x2F;&#x2F; This is where the app starts executing.void main() &amp;#123">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-05T02:02:29.000Z">
+<meta property="article:modified_time" content="2021-07-05T03:40:21.618Z">
+<meta property="article:author" content="Duke">
+<meta property="article:tag" content="Dart">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>Dart 开发语言概览 - 01 · Duke&#39;s 🛖</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >Duke&#39;s 🛖</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Dart 开发语言概览 - 01</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>Duke's 🛖</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Dart 开发语言概览 - 01
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Dart">Dart</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">5k</span>Reading time: <span class="post-count reading-time">21 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/07/05</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Define a function.</span></span><br><span class="line"><span class="keyword">void</span> printInteger(<span class="built_in">int</span> aNumber) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;The number is <span class="subst">$aNumber</span>.&#x27;</span>); <span class="comment">// Print to console.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This is where the app starts executing.</span></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  <span class="keyword">var</span> number = <span class="number">42</span>; <span class="comment">// Declare and initialize a variable.</span></span><br><span class="line">  printInteger(number); <span class="comment">// Call a function.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-重要概念"><a href="#1-重要概念" class="headerlink" title="1. 重要概念"></a>1. 重要概念</h4><p>1.1 所有变量引用的都是 <strong>对象</strong>，每个对象都是一个 <strong>类</strong> 的实例。数字、函数以及 <code>null</code> 都是对象。除去 <code>null</code> 以外（如果你开启了 <a target="_blank" rel="noopener" href="https://dart.cn/null-safety">空安全</a>）, 所有的类都继承于 Object 类。</p>
+<p>1.2 尽管 Dart 是强类型语言，但是在声明变量时指定类型是可选的，因为 Dart 可以进行类型推断。在上述代码中，变量 <code>number</code>的类型被推断为 <code>int</code> 类型。</p>
+<p>1.3 如果你开启了 <a target="_blank" rel="noopener" href="https://dart.cn/null-safety">空安全</a>，变量在未声明为可空类型时不能为 <code>null</code>。你可以通过在类型后加上问号 (<code>?</code>) 将类型声明为可空。例如，<code>int?</code> 类型的变量可以是整形数字或 <code>null</code>。如果你 <strong>明确知道</strong> 一个表达式不会为空，但 Dart 不这么认为时，你可以在表达式后添加 <code>!</code> 来断言表达式不为空（为空时将抛出异常）。例如：<code>int x = nullableButNotNullInt!</code></p>
+<p>1.4 如果你想要显式地声明允许任意类型，使用 <code>Object?</code>（如果你 <a target="_blank" rel="noopener" href="https://dart.cn/null-safety#enable-null-safety">开启了空安全</a>）、 <code>Object</code> 或者 <a target="_blank" rel="noopener" href="https://dart.cn/guides/language/effective-dart/design#avoid-using-dynamic-unless-you-want-to-disable-static-checking">特殊类型 <code>dynamic</code></a> 将检查延迟到运行时进行。</p>
+<p>1.5 Dart 支持泛型，比如 <code>List&lt;int&gt;</code>（表示一组由 int 对象组成的列表）或 <code>List&lt;Object&gt;</code>（表示一组由任何类型对象组成的列表）。</p>
+<p>1.6  Dart 支持顶级函数（例如 <code>main</code> 方法），同时还支持定义属于类或对象的函数（即 <em>静态</em> 和 <em>实例方法</em>）。你还可以在函数中定义函数（<em>嵌套</em> 或 <em>局部函数</em>）。</p>
+<p>1.7 Dart 支持顶级 <strong>变量</strong>，以及定义属于类或对象的变量（静态和实例变量）。实例变量有时称之为域或属性。</p>
+<p>1.8 Dart 没有类似于 Java 那样的 <code>public</code>、<code>protected</code> 和 <code>private</code> 成员访问限定符。如果一个标识符以下划线 (<code>_</code>) 开头则表示该标识符在库内是私有的。可以查阅 <a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#libraries-and-visibility">库和可见性</a> 获取更多相关信息。</p>
+<p>1.9 <em>标识符</em> 可以以字母或者下划线 (<code>_</code>) 开头，其后可跟字符和数字的组合。</p>
+<p>1.10 Dart 中 <strong>表达式</strong> 和 <strong>语句</strong> 是有区别的，表达式有值而语句没有。比如<a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#conditional-expressions">条件表达式</a> <code>expression condition ? expr1 : expr2</code> 中含有值 <code>expr1</code> 或 <code>expr2</code>。与 <a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#if-and-else">if-else 分支语句</a>相比，<code>if-else</code> 分支语句则没有值。一个语句通常包含一个或多个表达式，但是一个表达式不能只包含一个语句。</p>
+<p>1.11 Dart 工具可以显示 <strong>警告</strong> 和 <strong>错误</strong> 两种类型的问题。警告表明代码可能有问题但不会阻止其运行。错误分为编译时错误和运行时错误；编译时错误代码无法运行；运行时错误会在代码运行时导致 <a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#exceptions">异常</a>。</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Bob&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>变量仅存储对象的引用。这里名为 <code>name</code> 的变量存储了一个 <code>String</code> 类型对象的引用，“Bob” 则是该对象的值。</p>
+<p><code>name</code> 变量的类型被推断为 <code>String</code>，但是你可以为其指定类型。如果一个对象的引用不局限于单一的类型，可以将其指定为 <code>Object</code>（或 <code>dynamic</code>）类型。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span> name = <span class="string">&#x27;Bob&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>除此之外你也可以指定类型：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> name = <span class="string">&#x27;Bob&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h5><p>在 Dart 中，未初始化的变量拥有一个默认的初始化值：<code>null</code>。（如果你未迁移至 <a target="_blank" rel="noopener" href="https://dart.cn/null-safety">空安全</a>，所有变量都为可空类型。）即便数字也是如此，因为在 Dart 中一切皆为对象，数字也不例外。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int?</span> lineCount;</span><br><span class="line"><span class="keyword">assert</span>(lineCount == <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 备忘:</span><br><span class="line"></span><br><span class="line">assert() 的调用将会在生产环境的代码中被忽略掉。在开发过程中，assert(condition) 将会在 条件判断 为 false 时抛出一个异常。详情请查阅 Assert。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果你使用空安全，你必须在使用变量的时候，确保他们是非空的。</p>
+<h5 id="Late-变量"><a href="#Late-变量" class="headerlink" title="Late 变量"></a>Late 变量</h5><p>Dart 2.12添加了late修饰符，它有两个用例:</p>
+<p>声明一个在声明后初始化的非空变量。<br>延迟初始化变量。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">late</span> <span class="built_in">String</span> description;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  description = <span class="string">&#x27;Feijoada!&#x27;</span>;</span><br><span class="line">  <span class="built_in">print</span>(description);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p> If you fail to initialize a <code>late</code> variable, a runtime error occurs when the variable is used.</p>
+<p>什么时候使用late:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The variable might not be needed, and initializing it is costly.</span><br><span class="line">You’re initializing an instance variable, and its initializer needs access to this.</span><br></pre></td></tr></table></figure>
+
+
+
+<p>In the following example, if the <code>temperature</code> variable is never used, then the expensive <code>_readThermometer()</code> function is never called:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This is the program&#x27;s only call to _readThermometer().</span></span><br><span class="line"><span class="keyword">late</span> <span class="built_in">String</span> temperature = _readThermometer(); <span class="comment">// Lazily initialized.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="Final-和-Const"><a href="#Final-和-Const" class="headerlink" title="Final 和 Const"></a>Final 和 Const</h5><p>如果你不想更改一个变量，可以使用关键之final 或者 const 修饰变量，这两个关键字可以替代var关键字或者加在一个具体的类型前。一个final变量只可以被赋值一次；一个const变量是一个编译时常量（const变量同时也是final的）。顶层的final变量或者类的final 变量在其第一次使用的时候被初始化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">备忘:</span><br><span class="line"></span><br><span class="line">实例变量 可以是 final 的但不可以是 const.</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下面的示例中我们创建并设置两个 final 变量:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> name = <span class="string">&#x27;Bob&#x27;</span>; <span class="comment">// Without a type annotation</span></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> nickname = <span class="string">&#x27;Bobby&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>你不能修改一个 final 变量的值：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&#x27;Alice&#x27;</span>; <span class="comment">// Error: a final variable can only be set once.</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用关键字 const 修饰变量表示该变量为 编译时常量。 如果使用 const 修饰类中的 变量，则必须加上static关键字，即 即 <code>static const</code>（顺序不能颠倒）。在声明 const 变量时可以直接为其赋值，也可以使用其它的 const 变量为其赋值：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = <span class="number">1000000</span>; <span class="comment">// 直接赋值 [Unit of pressure (dynes/cm2)]</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">double</span> atm = <span class="number">1.01325</span> * bar; <span class="comment">// 利用其它 const 变量赋值 (Standard atmosphere)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>const</code> 关键字不仅仅可以用来定义常量，还可以用来创建 <strong>常量值</strong>，该常量值可以赋予给任何变量。你也可以将构造函数声明为 const 的，这种类型的构造函数创建的对象是不可改变的。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="keyword">const</span> [];</span><br><span class="line"><span class="keyword">final</span> bar = <span class="keyword">const</span> [];</span><br><span class="line"><span class="keyword">const</span> baz = []; <span class="comment">// 相当于 `const []` (Equivalent to `const []`)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h4><p>Dart 语言支持下列内容：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#numbers">Numbers</a> (<code>int</code>, <code>double</code>)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#strings">Strings</a> (<code>String</code>)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#booleans">Booleans</a> (<code>bool</code>)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#lists">Lists</a> (也被称为 <em>arrays</em>)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#sets">Sets</a> (<code>Set</code>)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#maps">Maps</a> (<code>Map</code>)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#characters">Runes</a> (常用于在 <code>Characters</code> API 中进行字符替换)</li>
+<li><a target="_blank" rel="noopener" href="https://dart.cn/guides/language/language-tour#symbols">Symbols</a> (<code>Symbol</code>)</li>
+<li>The value <code>null</code> (<code>Null</code>)</li>
+</ul>
+<p>使用字面量来创建对象也受到支持。例如 <code>&#39;This is a string&#39;</code> 是一个字符串字面量，<code>true</code> 是一个布尔字面量。</p>
+<p>由于 Dart 中每个变量引用都指向一个对象（一个 <strong>类</strong> 的实例），通常也可以使用 <strong>构造器</strong> 来初始化变量。一些内置的类型有它们自己的构造器。例如你可以使用 <code>Map()</code> 来创建一个 map 对象。</p>
+<h3 id="Numbers"><a href="#Numbers" class="headerlink" title="Numbers"></a>Numbers</h3><p>Dart 支持两种 Number 类型：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/int-class.html"><code>int</code></a></p>
+<p>整数值；长度不超过 64 位，具体取值范围 <a target="_blank" rel="noopener" href="https://dart.cn/guides/language/numbers">依赖于不同的平台</a>。在 DartVM 上其取值位于 -263 至 263 - 1 之间。在 Web 上，整型数值代表着 JavaScript 的数字（64 位无小数浮点型），其允许的取值范围在 -253 至 253 - 1 之间。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/double-class.html"><code>double</code></a></p>
+<p>64 位的双精度浮点数字，且符合 IEEE 754 标准。</p>
+</li>
+</ul>
+<p><code>int</code> 和 <code>double</code> 都是 [<code>num</code>][num] 的子类。 num 中定义了一些基本的运算符比如 +、-、*、/ 等，还定义了 <code>abs()</code>、<code>ceil()</code> 和 <code>floor()</code> 等方法（位运算符，比如 &gt;&gt; 定义在 int 中）。如果 num 及其子类不满足你的要求，可以查看 <a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-math">dart:math</a> 库中的 API。</p>
+<p>下面是字符串和数字之间转换的方式:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String -&gt; int</span></span><br><span class="line"><span class="keyword">var</span> one = <span class="built_in">int</span>.parse(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(one == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// String -&gt; double</span></span><br><span class="line"><span class="keyword">var</span> onePointOne = <span class="built_in">double</span>.parse(<span class="string">&#x27;1.1&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(onePointOne == <span class="number">1.1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// int -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> oneAsString = <span class="number">1.</span>toString();</span><br><span class="line"><span class="keyword">assert</span>(oneAsString == <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// double -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> piAsString = <span class="number">3.14159</span>.toStringAsFixed(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">assert</span>(piAsString == <span class="string">&#x27;3.14&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>整型支持传统的位移操作，比如移位（&lt;&lt;、&gt;&gt;）、按位与（&amp;）、按位或（|），例如：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span>((<span class="number">3</span> &lt;&lt; <span class="number">1</span>) == <span class="number">6</span>); <span class="comment">// 0011 &lt;&lt; 1 == 0110</span></span><br><span class="line"><span class="keyword">assert</span>((<span class="number">3</span> &gt;&gt; <span class="number">1</span>) == <span class="number">1</span>); <span class="comment">// 0011 &gt;&gt; 1 == 0001</span></span><br><span class="line"><span class="keyword">assert</span>((<span class="number">3</span> | <span class="number">4</span>) == <span class="number">7</span>); <span class="comment">// 0011 | 0100 == 0111</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>数字字面量为编译时常量。很多算术表达式只要其操作数是常量，则表达式结果也是编译时常量。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> msPerSecond = <span class="number">1000</span>;</span><br><span class="line"><span class="keyword">const</span> secondsUntilRetry = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> msUntilRetry = secondsUntilRetry * msPerSecond;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h3><p>Dart 字符串（<code>String</code> 对象）包含了 UTF-16 编码的字符序列。可以使用单引号或者双引号来创建字符串：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="string">&#x27;Single quotes work well for string literals.&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="string">&quot;Double quotes work just as well.&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> s3 = <span class="string">&#x27;It\&#x27;s easy to escape the string delimiter.&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> s4 = <span class="string">&quot;It&#x27;s even easier to use the other delimiter.&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码中文解释</span></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="string">&#x27;使用单引号创建字符串字面量。&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="string">&quot;双引号也可以用于创建字符串字面量。&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> s3 = <span class="string">&#x27;使用单引号创建字符串时可以使用斜杠来转义那些与单引号冲突的字符串：\&#x27;。&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> s4 = <span class="string">&quot;而在双引号中则不需要使用转义与单引号冲突的字符串：&#x27;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在字符串中，请以 <code>$&#123;</code><em><code>表达式</code></em><code>&#125;</code> 的形式使用表达式，如果表达式是一个标识符，可以省略掉 {}。如果表达式的结果为一个对象，则 Dart 会调用该对象的 <code>toString</code> 方法来获取一个字符串。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">&#x27;string interpolation&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span>(<span class="string">&#x27;Dart has <span class="subst">$s</span>, which is very handy.&#x27;</span> ==</span><br><span class="line">    <span class="string">&#x27;Dart has string interpolation, &#x27;</span> +</span><br><span class="line">        <span class="string">&#x27;which is very handy.&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(<span class="string">&#x27;That deserves all caps. &#x27;</span> +</span><br><span class="line">        <span class="string">&#x27;<span class="subst">$&#123;s.toUpperCase()&#125;</span> is very handy!&#x27;</span> ==</span><br><span class="line">    <span class="string">&#x27;That deserves all caps. &#x27;</span> +</span><br><span class="line">        <span class="string">&#x27;STRING INTERPOLATION is very handy!&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码中文解释</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">&#x27;字符串插值&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span>(<span class="string">&#x27;Dart 有<span class="subst">$s</span>，使用起来非常方便。&#x27;</span> == <span class="string">&#x27;Dart 有字符串插值，使用起来非常方便。&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(<span class="string">&#x27;使用<span class="subst">$&#123;s.substring(<span class="number">3</span>,<span class="number">5</span>)&#125;</span>表达式也非常方便&#x27;</span> == <span class="string">&#x27;使用插值表达式也非常方便。&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">备忘:</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D; 运算符负责判断两个对象的内容是否一样，如果两个字符串包含一样的字符编码序列，则表示相等。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>你可以使用 <code>+</code> 运算符或并列放置多个字符串来连接字符串：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="string">&#x27;String &#x27;</span></span><br><span class="line">    <span class="string">&#x27;concatenation&#x27;</span></span><br><span class="line">    <span class="string">&quot; works even over line breaks.&quot;</span>;</span><br><span class="line"><span class="keyword">assert</span>(s1 ==</span><br><span class="line">    <span class="string">&#x27;String concatenation works even over &#x27;</span></span><br><span class="line">        <span class="string">&#x27;line breaks.&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="string">&#x27;The + operator &#x27;</span> + <span class="string">&#x27;works, as well.&#x27;</span>;</span><br><span class="line"><span class="keyword">assert</span>(s2 == <span class="string">&#x27;The + operator works, as well.&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码中文解释</span></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="string">&#x27;可以拼接&#x27;</span></span><br><span class="line">    <span class="string">&#x27;字符串&#x27;</span></span><br><span class="line">    <span class="string">&quot;即便它们不在同一行。&quot;</span>;</span><br><span class="line"><span class="keyword">assert</span>(s1 == <span class="string">&#x27;可以拼接字符串即便它们不在同一行。&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="string">&#x27;使用加号 + 运算符&#x27;</span> + <span class="string">&#x27;也可以达到相同的效果。&#x27;</span>;</span><br><span class="line"><span class="keyword">assert</span>(s2 == <span class="string">&#x27;使用加号 + 运算符也可以达到相同的效果。&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用三个单引号或者三个双引号也能创建多行字符串：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">你可以像这样创建多行字符串。</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="string">&quot;&quot;&quot;这也是一个多行字符串。&quot;&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在字符串前加上 <code>r</code> 作为前缀创建 “raw” 字符串（即不会被做任何处理（比如转义）的字符串）：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">r&#x27;In a raw string, not even \n gets special treatment.&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码中文解释</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">r&#x27;在 raw 字符串中，转义字符串 \n 会直接输出 “\n” 而不是转义为换行。&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>字符串字面量是一个编译时常量，只要是编译时常量都可以作为字符串字面量的插值表达式：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以将下面三个常量作为字符串插值拼接到字符串字面量中。(These work in a const string.)</span></span><br><span class="line"><span class="keyword">const</span> aConstNum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> aConstBool = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">const</span> aConstString = <span class="string">&#x27;a constant string&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 而下面三个常量不能作为字符串插值拼接到字符串字面量。</span></span><br><span class="line"><span class="keyword">var</span> aNum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> aBool = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">var</span> aString = <span class="string">&#x27;a string&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> aConstList = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> validConstString = <span class="string">&#x27;<span class="subst">$aConstNum</span> <span class="subst">$aConstBool</span> <span class="subst">$aConstString</span>&#x27;</span>;</span><br><span class="line"><span class="comment">// const invalidConstString = &#x27;$aNum $aBool $aString $aConstList&#x27;;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Booleans"><a href="#Booleans" class="headerlink" title="Booleans"></a>Booleans</h3><p>Dart 使用 <code>bool</code> 关键字表示布尔类型，布尔类型只有两个对象 <code>true</code> 和 <code>false</code>，两者都是编译时常量。</p>
+<p>Dart 的类型安全不允许你使用类似 <code>if (*nonbooleanValue*)</code> 或者 <code>assert (*nonbooleanValue*)</code> 这样的代码检查布尔值。相反，你应该总是显示地检查布尔值，比如像下面的代码这样：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查是否为空字符串 (Check for an empty string).</span></span><br><span class="line"><span class="keyword">var</span> fullName = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">assert</span>(fullName.isEmpty);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否小于等于零。</span></span><br><span class="line"><span class="keyword">var</span> hitPoints = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">assert</span>(hitPoints &lt;= <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否为 null。</span></span><br><span class="line"><span class="keyword">var</span> unicorn;</span><br><span class="line"><span class="keyword">assert</span>(unicorn == <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查是否为 NaN。</span></span><br><span class="line"><span class="keyword">var</span> iMeantToDoThis = <span class="number">0</span> / <span class="number">0</span>;</span><br><span class="line"><span class="keyword">assert</span>(iMeantToDoThis.isNaN);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><p>数组 (<strong>Array</strong>) 是几乎所有编程语言中最常见的集合类型，在 Dart 中数组由 <a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/List-class.html"><code>List</code></a> 对象表示。通常称之为 <strong>List</strong>。</p>
+<p>Dart 中 List 字面量看起来与 JavaScript 中数组字面量一样。下面是一个 Dart List 的示例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+
+
+
+<p>你可以在 Dart 的集合类型的最后一个项目后添加逗号。这个尾随逗号并不会影响集合，但它能有效避免「复制粘贴」的错误。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = [</span><br><span class="line">  <span class="string">&#x27;Car&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Boat&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Plane&#x27;</span>,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+
+
+<p>List 的下标索引从 0 开始，第一个元素的下标为 0，最后一个元素的下标为 <code>list.length - 1</code>。你可以像 JavaScript 中的用法那样获取 Dart 中 List 的长度以及元素：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">assert</span>(list.length == <span class="number">3</span>);</span><br><span class="line"><span class="keyword">assert</span>(list[<span class="number">1</span>] == <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">list[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">assert</span>(list[<span class="number">1</span>] == <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在 List 字面量前添加 <code>const</code> 关键字会创建一个编译时常量：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> constantList = <span class="keyword">const</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Dart 在 2.3 引入了 <strong>扩展操作符</strong>（<code>...</code>）和 <strong>空感知扩展操作符</strong>（<code>...?</code>），它们提供了一种将多个元素插入集合的简洁方法。</p>
+<p>例如，你可以使用扩展操作符（<code>...</code>）将一个 List 中的所有元素插入到另一个 List 中：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> list2 = [<span class="number">0</span>, ...list];</span><br><span class="line"><span class="keyword">assert</span>(list2.length == <span class="number">4</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果扩展操作符右边可能为 null ，你可以使用 null-aware 扩展操作符（<code>...?</code>）来避免产生异常：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list;</span><br><span class="line"><span class="keyword">var</span> list2 = [<span class="number">0</span>, ...?list];</span><br><span class="line"><span class="keyword">assert</span>(list2.length == <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Dart 还同时引入了 <strong>集合中的 if</strong> 和 <strong>集合中的 for</strong> 操作，在构建集合时，可以使用条件判断 (<code>if</code>) 和循环 (<code>for</code>)。</p>
+<p>下面示例是使用 <strong>集合中的 if</strong> 来创建一个 List 的示例，它可能包含 3 个或 4 个元素：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nav = [</span><br><span class="line">  <span class="string">&#x27;Home&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Furniture&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Plants&#x27;</span>,</span><br><span class="line">  <span class="keyword">if</span> (promoActive) <span class="string">&#x27;Outlet&#x27;</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下面是使用 <strong>集合中的 for</strong> 将列表中的元素修改后添加到另一个列表中的示例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> listOfInts = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> listOfStrings = [</span><br><span class="line">  <span class="string">&#x27;#0&#x27;</span>,</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> listOfInts) <span class="string">&#x27;#<span class="subst">$i</span>&#x27;</span></span><br><span class="line">];</span><br><span class="line"><span class="keyword">assert</span>(listOfStrings[<span class="number">1</span>] == <span class="string">&#x27;#1&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h3><p>在 Dart 中，set 是一组特定元素的无序集合。 Dart 支持的集合由集合的字面量和 <a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/Set-class.html"><code>Set</code></a> 类提供。</p>
+<p>下面是使用 Set 字面量来创建一个 Set 集合的方法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> halogens = &#123;<span class="string">&#x27;fluorine&#x27;</span>, <span class="string">&#x27;chlorine&#x27;</span>, <span class="string">&#x27;bromine&#x27;</span>, <span class="string">&#x27;iodine&#x27;</span>, <span class="string">&#x27;astatine&#x27;</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以使用在 <code>&#123;&#125;</code> 前加上类型参数的方式创建一个空的 Set，或者将 <code>&#123;&#125;</code> 赋值给一个 Set 类型的变量：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> names = &lt;<span class="built_in">String</span>&gt;&#123;&#125;; <span class="comment">// 类型+&#123;&#125;的形式创建Set。</span></span><br><span class="line"><span class="comment">// Set&lt;String&gt; names = &#123;&#125;; // 声明类型变量的形式创建 Set (This works, too).</span></span><br><span class="line"><span class="comment">// var names = &#123;&#125;; // 这样的形式将创建一个 Map 而不是 Set (Creates a map, not a set.)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Set 还是 map?</strong> Map 字面量语法相似于 Set 字面量语法。因为先有的 Map 字面量语法，所以 <code>&#123;&#125;</code> 默认是 <code>Map</code> 类型。如果忘记在 <code>&#123;&#125;</code> 上注释类型或赋值到一个未声明类型的变量上，那么 Dart 会创建一个类型为 <code>Map&lt;dynamic, dynamic&gt;</code> 的对象。</p>
+<p>使用 <code>add()</code> 方法或 <code>addAll()</code> 方法向已存在的 Set 中添加项目：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = &lt;<span class="built_in">String</span>&gt;&#123;&#125;;</span><br><span class="line">elements.add(<span class="string">&#x27;fluorine&#x27;</span>);</span><br><span class="line">elements.addAll(halogens);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用 <code>.length</code> 可以获取 Set 中元素的数量：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = &lt;<span class="built_in">String</span>&gt;&#123;&#125;;</span><br><span class="line">elements.add(<span class="string">&#x27;fluorine&#x27;</span>);</span><br><span class="line">elements.addAll(halogens);</span><br><span class="line"><span class="keyword">assert</span>(elements.length == <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以在 Set 字面量前添加 <code>const</code> 关键字创建一个 Set 编译时常量：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> constantSet = <span class="keyword">const</span> &#123;</span><br><span class="line">  <span class="string">&#x27;fluorine&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;chlorine&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;bromine&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;iodine&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;astatine&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// constantSet.add(&#x27;helium&#x27;); // This line will cause an error.</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h3><p>通常来说，Map 是用来关联 keys 和 values 的对象。其中键和值都可以是任何类型的对象。每个 <em>键</em> 只能出现一次但是 <em>值</em> 可以重复出现多次。 Dart 中 Map 提供了 Map 字面量以及 <a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/Map-class.html"><code>Map</code></a> 类型两种形式的 Map。</p>
+<p>下面是一对使用 Map 字面量创建 Map 的例子：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gifts = &#123;</span><br><span class="line">  <span class="comment">// 键:    值</span></span><br><span class="line">  <span class="string">&#x27;first&#x27;</span>: <span class="string">&#x27;partridge&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;second&#x27;</span>: <span class="string">&#x27;turtledoves&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;fifth&#x27;</span>: <span class="string">&#x27;golden rings&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> nobleGases = &#123;</span><br><span class="line">  <span class="number">2</span>: <span class="string">&#x27;helium&#x27;</span>,</span><br><span class="line">  <span class="number">10</span>: <span class="string">&#x27;neon&#x27;</span>,</span><br><span class="line">  <span class="number">18</span>: <span class="string">&#x27;argon&#x27;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>Dart 将 <code>gifts</code> 变量的类型推断为 <code>Map&lt;String, String&gt;</code>，而将 <code>nobleGases</code> 的类型推断为 <code>Map&lt;int, String&gt;</code>。如果你向这两个 Map 对象中添加不正确的类型值，将导致运行时异常。</p>
+<p>你也可以使用 Map 的构造器创建 Map：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gifts = <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt;();</span><br><span class="line">gifts[<span class="string">&#x27;first&#x27;</span>] = <span class="string">&#x27;partridge&#x27;</span>;</span><br><span class="line">gifts[<span class="string">&#x27;second&#x27;</span>] = <span class="string">&#x27;turtledoves&#x27;</span>;</span><br><span class="line">gifts[<span class="string">&#x27;fifth&#x27;</span>] = <span class="string">&#x27;golden rings&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> nobleGases = <span class="built_in">Map</span>&lt;<span class="built_in">int</span>, <span class="built_in">String</span>&gt;();</span><br><span class="line">nobleGases[<span class="number">2</span>] = <span class="string">&#x27;helium&#x27;</span>;</span><br><span class="line">nobleGases[<span class="number">10</span>] = <span class="string">&#x27;neon&#x27;</span>;</span><br><span class="line">nobleGases[<span class="number">18</span>] = <span class="string">&#x27;argon&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>向现有的 Map 中添加键值对与 JavaScript 的操作类似：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gifts = &#123;<span class="string">&#x27;first&#x27;</span>: <span class="string">&#x27;partridge&#x27;</span>&#125;;</span><br><span class="line">gifts[<span class="string">&#x27;fourth&#x27;</span>] = <span class="string">&#x27;calling birds&#x27;</span>; <span class="comment">// 添加键值对 (Add a key-value pair)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>从一个 Map 中获取一个值的操作也与 JavaScript 类似。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gifts = &#123;<span class="string">&#x27;first&#x27;</span>: <span class="string">&#x27;partridge&#x27;</span>&#125;;</span><br><span class="line"><span class="keyword">assert</span>(gifts[<span class="string">&#x27;first&#x27;</span>] == <span class="string">&#x27;partridge&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果检索的 Key 不存在于 Map 中则会返回一个 null：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gifts = &#123;<span class="string">&#x27;first&#x27;</span>: <span class="string">&#x27;partridge&#x27;</span>&#125;;</span><br><span class="line"><span class="keyword">assert</span>(gifts[<span class="string">&#x27;fifth&#x27;</span>] == <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用 <code>.length</code> 可以获取 Map 中键值对的数量：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gifts = &#123;<span class="string">&#x27;first&#x27;</span>: <span class="string">&#x27;partridge&#x27;</span>&#125;;</span><br><span class="line">gifts[<span class="string">&#x27;fourth&#x27;</span>] = <span class="string">&#x27;calling birds&#x27;</span>;</span><br><span class="line"><span class="keyword">assert</span>(gifts.length == <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在一个 Map 字面量前添加 <code>const</code> 关键字可以创建一个 Map 编译时常量：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> constantMap = <span class="keyword">const</span> &#123;</span><br><span class="line">  <span class="number">2</span>: <span class="string">&#x27;helium&#x27;</span>,</span><br><span class="line">  <span class="number">10</span>: <span class="string">&#x27;neon&#x27;</span>,</span><br><span class="line">  <span class="number">18</span>: <span class="string">&#x27;argon&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Map 可以像 List 一样支持使用扩展操作符（<code>...</code> 和 <code>...?</code>）以及集合的 if 和 for 操作。</p>
+<h3 id="Runes-与-grapheme-clusters"><a href="#Runes-与-grapheme-clusters" class="headerlink" title="Runes 与 grapheme clusters"></a>Runes 与 grapheme clusters</h3><p>在 Dart 中，<a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/Runes-class.html">runes</a> 公开了字符串的 Unicode 码位。使用 <a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/packages/characters">characters 包</a> 来访问或者操作用户感知的字符，也被称为 <a target="_blank" rel="noopener" href="https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries">Unicode (扩展) grapheme clusters</a>。</p>
+<p>Unicode 编码为每一个字母、数字和符号都定义了一个唯一的数值。因为 Dart 中的字符串是一个 UTF-16 的字符序列，所以如果想要表示 32 位的 Unicode 数值则需要一种特殊的语法。</p>
+<p>表示 Unicode 字符的常见方式是使用 <code>\uXXXX</code>，其中 XXXX 是一个四位数的 16 进制数字。例如心形字符（♥）的 Unicode 为 <code>\u2665</code>。对于不是四位数的 16 进制数字，需要使用大括号将其括起来。例如大笑的 emoji 表情（😆）的 Unicode 为 <code>\u&#123;1f600&#125;</code>。</p>
+<p>如果你需要读写单个 Unicode 字符，可以使用 characters 包中定义的 <code>characters</code> getter。它将返回 <a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/documentation/characters/latest/characters/Characters-class.html"><code>Characters</code></a> 对象作为一系列 grapheme clusters 的字符串。下面是使用 characters API 的样例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:characters/characters.dart&#x27;</span>;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">var</span> hi = <span class="string">&#x27;Hi 🇩🇰&#x27;</span>;</span><br><span class="line"><span class="built_in">print</span>(hi);</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;The end of the string: <span class="subst">$&#123;hi.substring(hi.length - <span class="number">1</span>)&#125;</span>&#x27;</span>);</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;The last character: <span class="subst">$&#123;hi.characters.last&#125;</span>\n&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>输出取决于你的环境，大致类似于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ dart bin&#x2F;main.dart</span><br><span class="line">Hi 🇩🇰</span><br><span class="line">The end of the string: ???</span><br><span class="line">The last character: 🇩🇰</span><br></pre></td></tr></table></figure>
+
+
+
+<p>有关使用 characters 包操作字符串的详细信息，请参阅用于 characters 包的<a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/packages/characters/example">样例</a> 和 <a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/documentation/characters">API 参考</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 备忘:</span><br><span class="line"></span><br><span class="line">在使用 List 操作 Rune 的时候需要小心，根据所操作的语种、字符集等不同可能会导致字符串出现问题，具体可参考 Stack Overflow 中的提问： [我如何在 Dart 中反转一个字符串？][How do I reverse a String in Dart?]。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Symbols"><a href="#Symbols" class="headerlink" title="Symbols"></a>Symbols</h3><p><a target="_blank" rel="noopener" href="https://api.dart.dev/stable/dart-core/Symbol-class.html"><code>Symbol</code></a> 表示 Dart 中声明的操作符或者标识符。你几乎不会需要 Symbol，但是它们对于那些通过名称引用标识符的 API 很有用，因为代码压缩后，尽管标识符的名称会改变，但是它们的 Symbol 会保持不变。</p>
+<p>可以使用在标识符前加 <code>#</code> 前缀来获取 Symbol：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#radix</span><br><span class="line">#bar</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Symbol 字面量是编译时常量。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://penglimin.github.io">Duke</a>
+            <p>原文链接：<a href="http://penglimin.github.io/2021/07/05/Dart-%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/">http://penglimin.github.io/2021/07/05/Dart-%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/</a>
+            <p>发表日期：<a href="http://penglimin.github.io/2021/07/05/Dart-%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/">July 5th 2021, 10:02:29 am</a>
+            <p>更新日期：<a href="http://penglimin.github.io/2021/07/05/Dart-%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/">July 5th 2021, 11:40:21 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2021/05/30/Flutter%E5%BC%82%E5%B8%B8%E4%B8%8ECrash%E6%94%B6%E9%9B%86/" title= "Flutter异常与Crash收集">
+                    <div class="prevTitle">Flutter异常与Crash收集</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:1601778775@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">1. 重要概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="toc-number">2.1.</span> <span class="toc-text">默认值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Late-%E5%8F%98%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">Late 变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Final-%E5%92%8C-Const"><span class="toc-number">2.3.</span> <span class="toc-text">Final 和 Const</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">内置类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Numbers"><span class="toc-number"></span> <span class="toc-text">Numbers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strings"><span class="toc-number"></span> <span class="toc-text">Strings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Booleans"><span class="toc-number"></span> <span class="toc-text">Booleans</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lists"><span class="toc-number"></span> <span class="toc-text">Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sets"><span class="toc-number"></span> <span class="toc-text">Sets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Maps"><span class="toc-number"></span> <span class="toc-text">Maps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Runes-%E4%B8%8E-grapheme-clusters"><span class="toc-number"></span> <span class="toc-text">Runes 与 grapheme clusters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Symbols"><span class="toc-number"></span> <span class="toc-text">Symbols</span></a>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 7
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2021/07/05/Dart-%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" >Dart 开发语言概览 - 01</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2021/05/30/Flutter%E5%BC%82%E5%B8%B8%E4%B8%8ECrash%E6%94%B6%E9%9B%86/" >Flutter异常与Crash收集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2021/05/18/Flutter-%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/" >Flutter 命令合集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2021/05/18/Dart%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/" >Dart开发语言</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/2021/05/15/iOS-flutter-module%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91%E5%8F%8A%E9%9B%86%E6%88%90flutter-boost/" >iOS+flutter_module混合开发及集成flutter_boost</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span><a class="archive-post-title" href= "/2021/04/18/github-hexo-hexo-theme-archer/" >github-hexo-hexo-theme-archer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/18</span><a class="archive-post-title" href= "/2021/04/18/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Flutter"><span class="iconfont-archer">&#xe606;</span>Flutter</span>
+    
+        <span class="sidebar-tag-name" data-tags="Flutter  Dart"><span class="iconfont-archer">&#xe606;</span>Flutter  Dart</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dart"><span class="iconfont-archer">&#xe606;</span>Dart</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Duke"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
