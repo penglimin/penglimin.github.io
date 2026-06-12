@@ -12,6 +12,8 @@ date: 2023-02-16 15:32:24.000000000 +09:00
 
    张量中默认的数据类型是 float32(torch.FloatTensor)
 
+   在torch中CPU和GPU张量分别有8种数据类型![01](./images/01.png)
+
 2. torch.tensor(data=, dtype=) 根据指定数据创建张量
 
    ```python
