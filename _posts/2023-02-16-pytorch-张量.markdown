@@ -1,0 +1,13 @@
+---
+layout: post
+title: Pytorch-张量
+date: 2023-02-16 15:32:24.000000000 +09:00
+---
+
+# 基本创建方式
+
+1. 张量的数据类型
+
+   在torch中CPU和GPU张量分别有8种数据类型![01](../assets/blog_images/01.png)
+
+   
