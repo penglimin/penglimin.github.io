@@ -42,4 +42,25 @@ date: 2023-02-16 15:32:24.000000000 +09:00
    
    ```
 
+   3.torch.Tensor(size=) 根据形状创建张量, 其也可用来创建指定数据的张量
+
+   ```python
+   def fn_02():
+       # 1. 创建2行3列的张量, 默认 dtype 为 float32
+       data = torch.Tensor(2,3) # tensor([[0., 0., 0.],[0., 0., 0.]])
+       print(data)
+       # 2. 注意: 如果传递列表, 则创建包含指定元素的张量
+       data = torch.Tensor([10]) # tensor([10.])
+       print(data)
+       data = torch.Tensor([10, 20]) # tensor([10., 20.])
+       print(data)
+   
+   ```
+
+   4.torch.IntTensor()/torch.FloatTensor() 创建指定类型的张量
+
+   ```
+   
+   ```
+
    
